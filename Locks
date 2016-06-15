@@ -1,0 +1,21 @@
+import RPi.GPIO as GPIO, sys
+from time import sleep
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+pin = int(sys.argv[1])
+GPIO.setup(pin, GPIO.OUT)
+dir = sys.argv[2]
+numOfPulses = 8
+def outputTime(pin, time):
+    GPIO.output(pin, True)
+    sleep(time)
+    GPIO.output(pin, False)
+if dir == 'CW':
+    for index in range(1, numOfPulses * 2):
+        outputTime(pin, 0.0005)
+        sleep(0.02)
+elif dir  == 'CCW':
+    for index in range(1, numOfPulses):
+        outputTime(pin, 0.0025)
+        sleep(0.02)
+GPIO.cleanup()
